@@ -13,7 +13,7 @@ const router = express.Router();
 const config = dotenv.config().parsed;
 
 const defaultRouter = require('./Router/default');
-const notesRouter = require('./Router/notesRouter');
+//const notesRouter = require('./Router/notesRouter');
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(morgan('dev'));
@@ -44,7 +44,7 @@ mongoose
 
     app.use('/', defaultRouter());
     app.use(express.static(config.PUBLIC_ROOT));
-    app.use('/notes', notesRouter());
+    //app.use('/notes', notesRouter());
 
 
 
