@@ -1,34 +1,44 @@
 const routers = require('express').Router();
 const Notes = require('../models/notes');
+const mongoose = require('mongoose');
 
 
 module.exports = function () {
 
+    // routers.get('/', function (req, res) {
+    //     Notes.find({})
+    //         .exec(function (err, notes) {
+    //             res.render('notes', {
+    //                 notes
+    //             });
+    //         })
+    // });
+
     routers.get('/', function (req, res) {
-        Notes.find({})
-            .exec(function (err, notes) {
-                res.json(notes)
-            })
+        res.render('notes.pug')
     });
 
-    routers.post('/', function (err, req, res) {
+    routers.get('/:id', function (req, res) {
+        res.render('notes.pug')
+    });
 
-        // let newNotes = req.body;
+
+
+    routers.post('/', function (req, res) {
+
+        let newNotes = req.body;
 
         let notes = new Notes({
-            title: 'ntest',
-            description: 'terstsre',
+            title: newNotes.tittleNotes,
+            description: newNotes.descriptionNotes,
             basket: false,
             created_at: new Date(),
             updated_at: new Date()
         });
 
-
         notes.save(function () {
-
-           req.json(notes);
+            res.json(notes);
         });
-
     });
 
     return routers;

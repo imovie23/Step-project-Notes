@@ -4,7 +4,8 @@ html(lang="ru")
         include basic/head
     body
         include basic/header
-        button(type="submit", value="Submit", style="margin:10px") Creat Notes
+        a(href="/notes")
+            button(type="submit", value="Submit", style="margin:10px", id="create-notes") Creat Notes
         button(type="submit", value="Submit", style="margin:10px") Creat Notes CkeckBox
-
+        block createNotes
     include basic/footer

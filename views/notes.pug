@@ -1,0 +1,9 @@
+extends layout
+
+block createNotes
+    form(action="", method="get", id="addToMongo", style="border: 1px black solid; width:95%; margin-left:15px")
+        label(for="tittleNotes" style="margin-left:10px;") Tittle notes
+        input(type="text", id="tittleNotes", name="tittleNotes" style="display:block; margin:10px; width: 90%;", value="")
+        label(for="descriptionNotes" style="margin-left:10px;") Description notes
+        input(type="text", id="descriptionNotes" name="descriptionNotes" style="display:block; margin:10px; width: 90%;", value="")
+        input(type="submit", style="margin:10px")
