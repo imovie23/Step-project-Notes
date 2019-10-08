@@ -27,6 +27,9 @@ mongoose
         }
     ).then(() => {
 
+    app.set('views engine', config.TEMPLATE_ENGINE);
+    app.set('views', config.TEMPLATE_VIEW_PATH);
+
     app.use((req, res, next) => {
         // set headers
         res.setHeader('Access-Control-Allow-Origin', '*');
@@ -38,10 +41,9 @@ mongoose
 
     app.use(bodyParse.urlencoded({ extended: true }));
     app.use(bodyParse.json());
-    app.use(express.static(config.PUBLIC_ROOT));
-
 
     app.use('/', defaultRouter());
+    app.use(express.static(config.PUBLIC_ROOT));
     app.use('/notes', notesRouter());
 
 
