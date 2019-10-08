@@ -43,7 +43,7 @@ mongoose
     app.use(bodyParse.json());
 
     app.use('/', defaultRouter());
-    app.use('/notes', notesRouter());
+    app.use('/notes-create', notesRouter());
 
 
 

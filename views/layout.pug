@@ -4,8 +4,14 @@ html(lang="ru")
         include basic/head
     body
         include basic/header
-        a(href="/notes")
+        a(href="/notes-create")
             button(type="submit", value="Submit", style="margin:10px", id="create-notes") Creat Notes
-        button(type="submit", value="Submit", style="margin:10px") Creat Notes CkeckBox
+        button(type="submit", value="Submit", style="margin:10px;") Creat Notes CkeckBox
+        each note in notes
+            div(style="border:1px black solid; width:10%; height:fit-content; display:inline-block; margin:5px")
+                p=note.title
+                p=note.description
+                a(href=`/notes-create/${note._id}`)
+                    button(type="submit", value="Submit", style="margin:10px" ) Details Notes
         block createNotes
     include basic/footer

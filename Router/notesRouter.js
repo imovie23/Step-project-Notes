@@ -5,23 +5,22 @@ const mongoose = require('mongoose');
 
 module.exports = function () {
 
-    // routers.get('/', function (req, res) {
-    //     Notes.find({})
-    //         .exec(function (err, notes) {
-    //             res.render('notes', {
-    //                 notes
-    //             });
-    //         })
-    // });
-
     routers.get('/', function (req, res) {
-        res.render('notes.pug')
+        res.render('notes.pug');
     });
 
-    routers.get('/:id', function (req, res) {
-        res.render('notes.pug')
-    });
+    routers.get('/:noteId', function (req, res) {
 
+        const noteId = req.params.noteId;
+
+        Notes
+            .findById(mongoose.Types.ObjectId(noteId), function (err, note) {
+                res.render('detailsNote.pug', {
+                    title: 'Параметры клиента:',
+                    note: note
+                });
+            });
+    });
 
 
     routers.post('/', function (req, res) {
