@@ -3,4 +3,7 @@ form(action="", method="get", id="addToMongo", style="border: 1px black solid; w
     input(type="text", id="tittleNotes", name="tittleNotes" style="display:block; margin:10px; width: 90%;", value=`${note.title}`)
     label(for="descriptionNotes" style="margin-left:10px;") Description notes
     input(type="text", id="descriptionNotes" name="descriptionNotes" style="display:block; margin:10px; width: 90%;", value=`${note.description}`)
+    input(type="hidden" name="id", value=note._id.toString())
     input(type="submit", style="margin:10px")
+    button(type="submit", value="Delete", style="margin:10px", onClick="onBtnDeleteClick" + `(event, '${note._id}')`) Delete Notes
+include basic/footer

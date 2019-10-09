@@ -23,7 +23,8 @@ mongoose
         config.DB_URI,
         {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useFindAndModify: false
         }
     ).then(() => {
 
@@ -43,7 +44,7 @@ mongoose
     app.use(bodyParse.json());
 
     app.use('/', defaultRouter());
-    app.use('/notes-create', notesRouter());
+    app.use('/notes', notesRouter());
 
 
 

@@ -40,5 +40,30 @@ module.exports = function () {
         });
     });
 
+    routers.put('/', function (req, res) {
+        let newNotes = req.body;
+
+        Notes
+            .findByIdAndUpdate(newNotes.id, {
+                title: newNotes.tittleNotes,
+                description: newNotes.descriptionNotes,
+                updated_at: new Date()
+            }, function (err, note) {
+                if (err) throw err;
+
+            });
+    });
+
+    routers.delete('/', function (req, res) {
+        let newNotes = req.body;
+
+        Notes
+            .findByIdAndRemove(newNotes.id, function (err,) {
+                if (err) throw err;
+                console.log('User deleted!');
+            });
+    });
+
+
     return routers;
 };
