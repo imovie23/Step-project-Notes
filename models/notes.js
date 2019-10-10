@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const notesSchema = new Schema({
     title: {type: String, required: true},
     description: String,
+    imageName: String,
     basket: Boolean,
     created_at: Date,
     updated_at: Date

@@ -1,6 +1,8 @@
 const routers = require('express').Router();
 const Notes = require('../models/notes');
 const mongoose = require('mongoose');
+const formData = require('form-data');
+const upload = require('../models/imgCreat');
 
 
 module.exports = function () {
@@ -23,25 +25,28 @@ module.exports = function () {
     });
 
 
-    routers.post('/', function (req, res) {
+    routers.post('/', upload.single("myFile"), function (req, res) {
 
         let newNotes = req.body;
+        console.log(newNotes);
 
         let notes = new Notes({
             title: newNotes.tittleNotes,
             description: newNotes.descriptionNotes,
             basket: false,
+            imageName: newNotes.nameImg,
             created_at: new Date(),
             updated_at: new Date()
         });
-
         notes.save(function () {
             res.json(notes);
         });
     });
 
-    routers.put('/', function (req, res) {
+    routers.put('/',upload.single("myFile"), function (req, res) {
         let newNotes = req.body;
+
+        console.log(newNotes);
 
         Notes
             .findByIdAndUpdate(newNotes.id, {
