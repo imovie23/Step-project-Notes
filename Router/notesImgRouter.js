@@ -37,8 +37,32 @@ module.exports = function () {
     });
 
     routers.post("/", upload.single("myFile"), (req, res, err) => {
-        res.status(201).send();
+        res.status(201).send(req.body);
     });
+
+    routers.delete('/image', function (req, res) {
+        let newNotes = req.body;
+
+        if(newNotes.imageId === '') {
+            console.log('No match');
+        }else {
+            gfs.files.findOne({ _id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) =>{
+
+                gfs.files.deleteOne(file, function(err){
+                    return true;
+                });
+
+            });
+            gfs.db.collection('uploads.chunks').findOne({files_id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) =>{
+
+                gfs.db.collection('uploads.chunks').deleteOne(file, function(err){
+                        return true;
+                    }) ;
+
+                });
+        }
+    });
+
 
     return routers;
 };

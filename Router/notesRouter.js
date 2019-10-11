@@ -28,13 +28,21 @@ module.exports = function () {
     routers.post('/', upload.single("myFile"), function (req, res) {
 
         let newNotes = req.body;
-        console.log(newNotes);
+        let imageId;
+
+        if (req.file === undefined) {
+            imageId ='';
+        } else {
+           imageId = req.file.id;
+        }
+
 
         let notes = new Notes({
             title: newNotes.tittleNotes,
             description: newNotes.descriptionNotes,
             basket: false,
             imageName: newNotes.nameImg,
+            imageId: imageId,
             created_at: new Date(),
             updated_at: new Date()
         });
@@ -43,11 +51,8 @@ module.exports = function () {
         });
     });
 
-    routers.put('/',upload.single("myFile"), function (req, res) {
+    routers.put('/', upload.single("myFile"), function (req, res) {
         let newNotes = req.body;
-
-        console.log(newNotes);
-
         Notes
             .findByIdAndUpdate(newNotes.id, {
                 title: newNotes.tittleNotes,
@@ -67,6 +72,7 @@ module.exports = function () {
                 if (err) throw err;
                 console.log('User deleted!');
             });
+
     });
 
 

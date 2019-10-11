@@ -16,7 +16,7 @@ const storage = new GridFsStorage({
                 }
                 const filename = file.originalname; //buf.toString('hex') + path.extname(file.originalname);
                 const fileInfo = {filename: filename, bucketName: "uploads"};
-                resolve(fileInfo);
+                resolve(fileInfo)
             });
         });
     }

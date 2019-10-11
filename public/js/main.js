@@ -9,6 +9,7 @@ if (form) {
             let formData = new FormData(this);
 
             for (let [name, value] of formData) {
+
                if(typeof value === "object"){
                    formData.append('nameImg', value.name)
                }
@@ -28,7 +29,7 @@ if (form) {
                     console.log("Go to space and Update!!!!!!");
 
                 });
-                // window.location.href = '/';
+               //window.location.href = '/';
 
             } else {
                 fetch('/notes', {
@@ -38,7 +39,7 @@ if (form) {
                     console.log(r);
 
                 }).finally(() => {
-                    //  window.location.href = '/';
+                     window.location.href = '/';
                     console.log("Go to space!!!!!!");
                 });
 
@@ -50,7 +51,7 @@ if (form) {
 }
 
 
-function onBtnDeleteClick(event, id) {
+function onBtnDeleteClick(event, id, imageId) {
     event.preventDefault();
 
     if (document.getElementById(id)) {
@@ -58,6 +59,8 @@ function onBtnDeleteClick(event, id) {
     } else {
         window.location.href = '/';
     }
+
+    console.log(imageId);
 
     fetch('/notes', {
         method: 'DELETE',
@@ -69,26 +72,26 @@ function onBtnDeleteClick(event, id) {
         console.log("Go to space and delete!!!!!!");
     });
 
+    fetch('/notes/image', {
+        method: 'DELETE',
+        body: JSON.stringify({imageId: imageId}),
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }).finally(() => {
+        console.log("Go to space and delete!!!!!!");
+    });
+
 
 }
 
 
-function onUploadedFile(e) {
-    e.preventDefault();
-    const file = document.getElementById("inputGroupFile01").files;
-    const formData = new FormData();
-    formData.append("img", file[0]);
-    fetch("/notes", {
-        method: "POST",
-        body: formData,
-    })
-        .then(r => {
-            console.log(r);
-        });
-    console.log(file[0]);
+function onBtnChangeClick(e, id) {
 
-    //document.getElementById("img").setAttribute("src", `image/${file[0].name}`);
+   // e.preventDefault();
 
+   let img = document.getElementById('fileChange');
+    return img.click()
 }
 
 
