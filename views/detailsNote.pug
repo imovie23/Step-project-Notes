@@ -1,0 +1,13 @@
+form(action="", method="get", id="addToMongo", style="border: 1px black solid; width:95%; margin-left:15px")
+    label(for="tittleNotes" style="margin-left:10px;") Tittle notes
+    input(type="text", id="tittleNotes", name="tittleNotes" style="display:block; margin:10px; width: 90%;", value=`${note.title}`)
+    label(for="descriptionNotes" style="margin-left:10px;") Description notes
+    input(type="text", id="descriptionNotes" name="descriptionNotes" style="display:block; margin:10px; width: 90%;", value=`${note.description}`)
+    input(type="hidden" name="id", value=note._id.toString())
+    input(type="submit", style="margin:10px")
+    button(type="submit", value="Delete", style="margin:10px", onClick="onBtnDeleteClick" + `(event, '${note._id}')`) Delete Notes
+    input(type="file", name="myFile", style="margin:10px; display:none;" id="fileChange")
+    button(type="submit", value="change", style="margin:10px", onClick="onBtnChangeClick" + `(event, '${note.imageId}')`) Change img
+    if note.imageName.length > 0
+        img(id="img", style="display:block; width:100%; height=350px;", src=`http://localhost:3001/notes/image/${note.imageName}`)
+include basic/footer

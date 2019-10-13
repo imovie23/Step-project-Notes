@@ -4,7 +4,17 @@ html(lang="ru")
         include basic/head
     body
         include basic/header
-        button(type="submit", value="Submit", style="margin:10px") Creat Notes
-        button(type="submit", value="Submit", style="margin:10px") Creat Notes CkeckBox
-
-    include basic/footer
+        a(href="/notes")
+            button(type="submit", value="Submit", style="margin:10px", id="create-notes") Creat Notes
+        button(type="submit", value="Submit", style="margin:10px;") Creat Notes CkeckBox
+        each note in notes
+            div(style="border:1px black solid; width:10%; height:fit-content; display:inline-block; margin:5px", id=`${note._id}`)
+                p=note.title
+                p=note.description
+                a(href=`/notes/${note._id}`)
+                    button(type="submit", value="Submit", style="margin:10px" ) Details Notes
+                button(type="submit", value="Delete", style="margin:10px", onClick="onBtnDeleteClick"+`(event, '${note._id}', '${note.imageId}')`) Delete Notes
+                if note.imageName.length > 0
+                    img(id="img", style="display:block; width:100%; height=350px;", src=`http://localhost:3001/notes/image/${note.imageName}`)
+        block createNotes
+        include basic/footer

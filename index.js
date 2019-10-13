@@ -7,23 +7,41 @@ const bodyParse = require('body-parser');
 const favicon = require('serve-favicon');
 const path = require('path');
 const morgan = require('morgan');
+const Grid = require('gridfs-stream');
+const GridFsStorage = require('multer-gridfs-storage');
+const multer = require('multer');
+
 
 const app = express();
 const router = express.Router();
 const config = dotenv.config().parsed;
+const conn = mongoose.createConnection(config.DB_URI);
 
 const defaultRouter = require('./Router/default');
 const notesRouter = require('./Router/notesRouter');
+const notesImgRouter = require('./Router/notesImgRouter');
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(morgan('dev'));
+
+
+
+let gfs;
+conn.once("open", () => {
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection("uploads");
+    console.log("Connection Successful");
+});
+
 
 mongoose
     .connect(
         config.DB_URI,
         {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useFindAndModify: false
+
         }
     ).then(() => {
 
@@ -35,17 +53,16 @@ mongoose
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
         next();
     });
 
-    app.use(bodyParse.urlencoded({ extended: true }));
+    app.use(express.static(config.PUBLIC_ROOT));
+    app.use(bodyParse.urlencoded({extended: true}));
     app.use(bodyParse.json());
 
     app.use('/', defaultRouter());
-    app.use(express.static(config.PUBLIC_ROOT));
     app.use('/notes', notesRouter());
-
+    app.use('/notes', notesImgRouter());
 
 
     if (!module.parent) {
