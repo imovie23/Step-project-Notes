@@ -94,4 +94,3 @@ function onBtnChangeClick(e, id) {
     return img.click()
 }
 
-
