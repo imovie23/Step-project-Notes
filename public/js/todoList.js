@@ -9,16 +9,36 @@ function onSubmitHandler(event) {
 }
 
 function onClickHandler(event) {
-	if (event.target.name !== 'submit') {
+	const target = event.target;
+
+	if (target.name !== 'submit' && target.name !== 'check') {
 		return;
 	}
 
-	const form = event.target.form;
+	if (target.name === 'check') {
+		if (target.checked === true) {
+			target.nextElementSibling.classList.add('js-done');
+			target.nextElementSibling.dataset.checked = "true";
+		} else {
+			target.nextElementSibling.classList.remove('js-done');
+			target.nextElementSibling.dataset.checked = "false";
+		}
+		return;
+	}
+
+	const form = target.form;
 	const data = {};
 
 	for (let element of form) {
 		if ('text'.includes(element.type)) {
+			if (element.name === 'title' && element.value !== '') {
 				data[element.name] = element.value;
+			} else if (element.dataset.input === 'todoItem' && element.value !== '') {
+				data[element.name] = {
+					value: element.value,
+					checked: element.dataset.checked
+				}
+			}
 		}
 	}
 
@@ -32,6 +52,14 @@ function onClickHandler(event) {
 		}
 	})
 		.finally(() => {
+			const formGroups = Array.from(form.querySelectorAll('.form-group'));
+
+			formGroups.forEach((item, index) => {
+				if (index > 1) {
+					item.remove();
+				}
+			});
+
 			form.reset();
 		});
 }
@@ -54,7 +82,8 @@ function onKeyDownHandler(event) {
 				return;
 			}
 
-			target.closest('.form-group').previousElementSibling.querySelector('input').focus();
+			event.preventDefault()
+			target.closest('.form-group').previousElementSibling.querySelector('[data-input="todoItem"]').focus();
 			target.closest('.form-group').remove();
 			return;
 		}
@@ -76,9 +105,10 @@ function addTodoItem(target) {
 	} else if (target.dataset.input === 'todoItem') {
 		const html = `
 			<div class="form-group">
-				<label>
-					<input class="form-control p-2 border-0" type="text" name="todoItem${todoItems.length + 1}" value="" data-input="todoItem" placeholder="Заметка #${todoItems.length + 1}">
-				</label>
+				<div class="form-check pl-4">
+					<input class="form-check-input todo-list__checkbox" type="checkbox" value="" name="check">
+					<input class="form-control p-2 border-0 todo-list__input" type="text" name="todoItem${todoItems.length + 1}" value="" data-input="todoItem" data-checked="false" placeholder="Заметка #${todoItems.length + 1}">
+				</div>
 			</div>
 		`
 
