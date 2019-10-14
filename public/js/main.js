@@ -16,21 +16,18 @@ if (form) {
                data[name] = value;
             }
 
+        console.log(data);
 
         if (data.id) {
                 fetch('/notes', {
                     method: 'PUT',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
+
+                    body: formData
                 }).finally(() => {
 
                     console.log("Go to space and Update!!!!!!");
 
                 });
-               //window.location.href = '/';
-
             } else {
                 fetch('/notes', {
                     method: 'POST',
@@ -39,13 +36,13 @@ if (form) {
                     console.log(r);
 
                 }).finally(() => {
+
                      window.location.href = '/';
+
                     console.log("Go to space!!!!!!");
                 });
 
             }
-       // document.getElementById("img").setAttribute("src", `image/'${data.nameImg}'`);
-
         }
     );
 }
@@ -57,39 +54,44 @@ function onBtnDeleteClick(event, id, imageId) {
     if (document.getElementById(id)) {
         document.getElementById(id).remove();
     } else {
-        window.location.href = '/';
+        // window.location.href = '/';
     }
 
-    console.log(imageId);
+    if (id !== null && id !== undefined && id.length > 0) {
+        fetch('/notes', {
+            method: 'DELETE',
+            body: JSON.stringify({id: id}),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).finally(() => {
+            console.log("Go to space and delete!!!!!!");
+        });
+    }
 
-    fetch('/notes', {
-        method: 'DELETE',
-        body: JSON.stringify({id: id}),
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    }).finally(() => {
-        console.log("Go to space and delete!!!!!!");
-    });
+    if (imageId !== null && imageId !== undefined && imageId.length > 0) {
 
-    fetch('/notes/image', {
-        method: 'DELETE',
-        body: JSON.stringify({imageId: imageId}),
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    }).finally(() => {
-        console.log("Go to space and delete!!!!!!");
-    });
+        fetch('/notes/image', {
+            method: 'DELETE',
+            body: JSON.stringify({imageId: imageId}),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).finally(() => {
+            console.log("Go to space and delete!!!!!!");
+        });
 
-
+    }
 }
 
+function onBtnChangeClick(e) {
 
-function onBtnChangeClick(e, id) {
+    e.preventDefault();
+    let changeImg = document.getElementById('fileChange');
+    changeImg.click();
+}
 
-   // e.preventDefault();
+function onFileChange(e, id, imageId) {
 
-   let img = document.getElementById('fileChange');
-    return img.click()
+    onBtnDeleteClick(e, id, imageId)
 }
