@@ -3,6 +3,7 @@ const upload = require('../models/imgCreat');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Grid = require('gridfs-stream');
+const Notes = require('../models/notes');
 
 
 const config = dotenv.config().parsed;
@@ -19,7 +20,7 @@ conn.once("open", () => {
 module.exports = function () {
 
     routers.get('/image/:filename', (req, res) => {
-        gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+        gfs.files.findOne({filename: req.params.filename}, (err, file) => {
             if (!file || file.length === 0) {
                 return res.status(404).json({
                     err: 'No file exists',
@@ -43,23 +44,23 @@ module.exports = function () {
     routers.delete('/image', function (req, res) {
         let newNotes = req.body;
 
-        if(newNotes.imageId === '') {
+        if (newNotes.imageId === '') {
             console.log('No match');
-        }else {
-            gfs.files.findOne({ _id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) =>{
+        } else {
+            gfs.files.findOne({_id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) => {
 
-                gfs.files.deleteOne(file, function(err){
+                gfs.files.deleteOne(file, function (err) {
                     return true;
                 });
 
             });
-            gfs.db.collection('uploads.chunks').findOne({files_id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) =>{
+            gfs.db.collection('uploads.chunks').findOne({files_id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) => {
 
-                gfs.db.collection('uploads.chunks').deleteOne(file, function(err){
-                        return true;
-                    }) ;
-
+                gfs.db.collection('uploads.chunks').deleteOne(file, function (err) {
+                    return true;
                 });
+
+            });
         }
     });
 

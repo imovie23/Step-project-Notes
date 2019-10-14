@@ -6,8 +6,9 @@ form(action="", method="get", id="addToMongo", style="border: 1px black solid; w
     input(type="hidden" name="id", value=note._id.toString())
     input(type="submit", style="margin:10px")
     button(type="submit", value="Delete", style="margin:10px", onClick="onBtnDeleteClick" + `(event, '${note._id}')`) Delete Notes
-    input(type="file", name="myFile", style="margin:10px; display:none;" id="fileChange")
-    button(type="submit", value="change", style="margin:10px", onClick="onBtnChangeClick" + `(event, '${note.imageId}')`) Change img
+    input(type="file", name="myFile", style="margin:10px; display:none;" id="fileChange" onchange="onFileChange" + `(event, null, '${note.imageId}')`)
+    button(type="text", value=note.imageId, name=note.imageName, style="margin:10px", onClick="onBtnChangeClick" + `(event)`, id="imageChange") Change img
     if note.imageName.length > 0
         img(id="img", style="display:block; width:100%; height=350px;", src=`http://localhost:3001/notes/image/${note.imageName}`)
-include basic/footer
+
+    include basic/footer
