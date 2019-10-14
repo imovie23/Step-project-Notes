@@ -10,11 +10,10 @@ if (form) {
 
             for (let [name, value] of formData) {
 
-                if (typeof value === "object") {
-                    formData.append('nameImg', value.name);
-
-                }
-                data[name] = value;
+               if(typeof value === "object"){
+                   formData.append('nameImg', value.name)
+               }
+               data[name] = value;
             }
         console.log(data);
 
