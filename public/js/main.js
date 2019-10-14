@@ -93,4 +93,3 @@ function onBtnChangeClick(e, id) {
    let img = document.getElementById('fileChange');
     return img.click()
 }
-
