@@ -1,0 +1,26 @@
+doctype html
+html(lang="ru")
+    head
+        include basic/head
+
+    body
+        header
+        .container
+            h1 Привет от todo list
+
+            .row
+                .col-md-3
+                    .card
+                        .card-body.p-2
+                            form#todoForm(name="todoForm")
+                                .form-group
+                                    label
+                                        input.form-control.p-2.border-0(type="text", name="title", value="sometitle", placeholder="Введите заголовок")
+                                .form-group
+                                    label
+                                        input.form-control.p-2.border-0(type="text", name="todoItem1", value="", data-input="todoItem", placeholder="Заметка #1")
+                                p.p-2.mb-0
+                                    button.btn.btn-primary(type="button", name="submit") Сохранить
+
+    footer
+        script(src="/js/todoList.js")
