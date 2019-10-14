@@ -6,6 +6,7 @@ const Grid = require('gridfs-stream');
 const Notes = require('../models/notes');
 
 
+
 const config = dotenv.config().parsed;
 const conn = mongoose.createConnection(config.DB_URI);
 
@@ -20,7 +21,8 @@ conn.once("open", () => {
 module.exports = function () {
 
     routers.get('/image/:filename', (req, res) => {
-        gfs.files.findOne({filename: req.params.filename}, (err, file) => {
+        gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+
             if (!file || file.length === 0) {
                 return res.status(404).json({
                     err: 'No file exists',
@@ -50,10 +52,13 @@ module.exports = function () {
             gfs.files.findOne({_id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) => {
 
                 gfs.files.deleteOne(file, function (err) {
+
+        
                     return true;
                 });
 
             });
+
             gfs.db.collection('uploads.chunks').findOne({files_id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) => {
 
                 gfs.db.collection('uploads.chunks').deleteOne(file, function (err) {

@@ -15,20 +15,19 @@ if (form) {
                }
                data[name] = value;
             }
-        console.log(data);
 
+        console.log(data);
 
         if (data.id) {
                 fetch('/notes', {
                     method: 'PUT',
+
                     body: formData
                 }).finally(() => {
 
                     console.log("Go to space and Update!!!!!!");
 
                 });
-                //window.location.href = '/';
-
             } else {
                 fetch('/notes', {
                     method: 'POST',
@@ -37,13 +36,13 @@ if (form) {
                     console.log(r);
 
                 }).finally(() => {
-                    //  window.location.href = '/';
+
+                     window.location.href = '/';
+
                     console.log("Go to space!!!!!!");
                 });
 
             }
-            // document.getElementById("img").setAttribute("src", `image/'${data.nameImg}'`);
-
         }
     );
 }
@@ -85,7 +84,6 @@ function onBtnDeleteClick(event, id, imageId) {
     }
 }
 
-
 function onBtnChangeClick(e) {
 
     e.preventDefault();
@@ -97,4 +95,3 @@ function onFileChange(e, id, imageId) {
 
     onBtnDeleteClick(e, id, imageId)
 }
-
