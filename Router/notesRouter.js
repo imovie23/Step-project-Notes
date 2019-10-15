@@ -29,11 +29,10 @@ module.exports = function () {
 
         let newNotes = req.body;
         let imageId;
-
         if (req.file === undefined) {
             imageId ='';
         } else {
-           imageId = req.file.id;
+            imageId = req.file.id;
         }
 
 
@@ -54,16 +53,26 @@ module.exports = function () {
     routers.put('/', upload.single("myFile"), function (req, res) {
         let newNotes = req.body;
         let imageId;
-      
+        if (req.file === undefined) {
+            imageId ='';
+        } else {
+            imageId = req.file.id;
+        }
+
+        let test = JSON.parse(newNotes.data);
+
         Notes
             .findByIdAndUpdate(newNotes.id, {
                 title: newNotes.tittleNotes,
                 description: newNotes.descriptionNotes,
+                imageName: newNotes.nameImg.length !== 0 ? newNotes.nameImg : test.imageName,
+                imageId: imageId.length !== 0 ? imageId : test.imageId,
                 updated_at: new Date()
             }, function (err, note) {
-                if (err) throw err;
+                // if (err) throw err;
 
             });
+        res.status(201).send(req.body);
     });
 
     routers.delete('/', function (req, res) {
@@ -74,7 +83,7 @@ module.exports = function () {
                 if (err) throw err;
                 console.log('User deleted!');
             });
-
+        res.status(201).send(req.body);
     });
 
 
