@@ -21,21 +21,19 @@ const defaultRouter = require('./Router/default');
 const notesRouter = require('./Router/notesRouter');
 const notesImgRouter = require('./Router/notesImgRouter');
 
-const makeTodoListRouter = require('./Router/makeTodoListRouter');
-
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(morgan('dev'));
 
 mongoose
-    .connect(
-        config.DB_URI,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useFindAndModify: false
+  .connect(
+    config.DB_URI,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false
 
-        }
-    ).then(() => {
+    }
+  ).then(() => {
 
     app.set('views engine', config.TEMPLATE_ENGINE);
     app.set('views', config.TEMPLATE_VIEW_PATH);
@@ -51,22 +49,16 @@ mongoose
     app.use(express.static(config.PUBLIC_ROOT));
     app.use(bodyParse.urlencoded({extended: true}));
     app.use(bodyParse.json());
-   // app.use(express.static(__dirname + '/public'));
+    // app.use(express.static(__dirname + '/public'));
 
     app.use('/', defaultRouter());
     app.use('/notes', notesRouter());
     app.use('/notes', notesImgRouter());
 
-    // ---------------------------------------------------- //
-
-    app.use('/todo', makeTodoListRouter());
-
 
     if (!module.parent) {
-        app.listen(3003);
+        app.listen(3001);
         console.log('Express started on port 3001');
     }
 
 });
-
-
