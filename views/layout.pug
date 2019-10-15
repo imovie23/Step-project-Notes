@@ -16,7 +16,7 @@ body
                     each note in notes
                         .col-md-4
                             div(class="card mb-4 box-shadow", id=`${note._id}`)
-                                if note.imageName.length > 0
+                                if note.imageName && note.imageName.length > 0
                                     img.card-img-top(src=`http://localhost:3001/notes/image/${note.imageName}`, alt='imageNotes', style='height: 225px; width: 100%; display: block; background-size: cover;', data-holder-rendered='true', id="img")
                                 .card-body
                                     h5(class="card-title")=note.title
