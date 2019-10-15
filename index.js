@@ -26,16 +26,6 @@ const makeTodoListRouter = require('./Router/makeTodoListRouter');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(morgan('dev'));
 
-
-
-let gfs;
-conn.once("open", () => {
-    gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection("uploads");
-    console.log("Connection Successful");
-});
-
-
 mongoose
     .connect(
         config.DB_URI,
@@ -61,6 +51,7 @@ mongoose
     app.use(express.static(config.PUBLIC_ROOT));
     app.use(bodyParse.urlencoded({extended: true}));
     app.use(bodyParse.json());
+   // app.use(express.static(__dirname + '/public'));
 
     app.use('/', defaultRouter());
     app.use('/notes', notesRouter());

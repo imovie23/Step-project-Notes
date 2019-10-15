@@ -43,6 +43,7 @@ module.exports = function () {
         res.status(201).send(req.body);
     });
 
+
     routers.delete('/image', function (req, res) {
         let newNotes = req.body;
 
@@ -67,6 +68,7 @@ module.exports = function () {
 
             });
         }
+        res.status(201).send(req.body);
     });
 
 
