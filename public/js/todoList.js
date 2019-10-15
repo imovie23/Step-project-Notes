@@ -105,9 +105,9 @@ function addTodoItem(target) {
 	} else if (target.dataset.input === 'todoItem') {
 		const html = `
 			<div class="form-group">
-				<div class="form-check pl-4">
+				<div class="form-check pl-3">
 					<input class="form-check-input todo-list__checkbox" type="checkbox" value="" name="check">
-					<input class="form-control p-2 border-0 todo-list__input" type="text" name="todoItem${todoItems.length + 1}" value="" data-input="todoItem" data-checked="false" placeholder="Заметка #${todoItems.length + 1}">
+					<input class="form-control pt-2 pb-2 pl-1 pr-1 border-0 todo-list__input" type="text" name="todoItem${todoItems.length + 1}" value="" data-input="todoItem" data-checked="false" placeholder="Заметка #${todoItems.length + 1}">
 				</div>
 			</div>
 		`
