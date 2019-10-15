@@ -1,8 +1,8 @@
-const todoForm = document.getElementById('todoForm')
+const listForm = document.getElementById('listForm')
 
-todoForm.addEventListener('submit', onSubmitHandler);
-todoForm.addEventListener('click', onClickHandler);
-todoForm.addEventListener('keydown', onKeyDownHandler);
+listForm.addEventListener('submit', onSubmitHandler);
+listForm.addEventListener('click', onClickHandler);
+listForm.addEventListener('keydown', onKeyDownHandler);
 
 function onSubmitHandler(event) {
 	event.preventDefault();
@@ -33,7 +33,7 @@ function onClickHandler(event) {
 		if ('text'.includes(element.type)) {
 			if (element.name === 'title' && element.value !== '') {
 				data[element.name] = element.value;
-			} else if (element.dataset.input === 'todoItem' && element.value !== '') {
+			} else if (element.dataset.input === 'listItem' && element.value !== '') {
 				data[element.name] = {
 					value: element.value,
 					checked: element.dataset.checked
@@ -44,7 +44,7 @@ function onClickHandler(event) {
 
 	console.log(data);
 
-	fetch('/todo', {
+	fetch('/lists', {
 		method: 'POST',
 		body: JSON.stringify(data),
 		headers: {
@@ -78,12 +78,12 @@ function onKeyDownHandler(event) {
 		}
 
 		if (!target.value && target.name !== 'title') {
-			if (target.name === 'todoItem1') {
+			if (target.name === 'listItem1') {
 				return;
 			}
 
 			event.preventDefault()
-			target.closest('.form-group').previousElementSibling.querySelector('[data-input="todoItem"]').focus();
+			target.closest('.form-group').previousElementSibling.querySelector('[data-input="listItem"]').focus();
 			target.closest('.form-group').remove();
 			return;
 		}
@@ -93,26 +93,26 @@ function onKeyDownHandler(event) {
 }
 
 function addTodoItem(target) {
-	const form = document.forms.todoForm;
+	const form = document.forms.listForm;
 
-	const todoItems = form.querySelectorAll('[data-input="todoItem"]');
+	const listItems = form.querySelectorAll('[data-input="listItem"]');
 
 	if (target.name === 'title') {
 
-		const firstInput = form.todoItem1;
+		const firstInput = form.listItem1;
 		firstInput.focus();
 
-	} else if (target.dataset.input === 'todoItem') {
+	} else if (target.dataset.input === 'listItem') {
 		const html = `
 			<div class="form-group">
 				<div class="form-check pl-3">
-					<input class="form-check-input todo-list__checkbox" type="checkbox" value="" name="check">
-					<input class="form-control pt-2 pb-2 pl-1 pr-1 border-0 todo-list__input" type="text" name="todoItem${todoItems.length + 1}" value="" data-input="todoItem" data-checked="false" placeholder="Заметка #${todoItems.length + 1}">
+					<input class="form-check-input list__checkbox" type="checkbox" value="" name="check">
+					<input class="form-control pt-2 pb-2 pl-1 pr-1 border-0 list__input" type="text" name="listItem${listItems.length + 1}" value="" data-input="listItem" data-checked="false" placeholder="Заметка #${listItems.length + 1}">
 				</div>
 			</div>
 		`
 
 		target.closest('.form-group').insertAdjacentHTML('afterend', html);
-		target.closest('.form-group').nextElementSibling.querySelector('[data-input="todoItem"]').focus();
+		target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus();
 	}
 }

@@ -1,21 +1,21 @@
-.todo-list__checkbox {
+.list__checkbox {
   left: 0;
   top: 15px;
   margin: 0;
 }
 
-.todo-list__title {
+.list__title {
   border-bottom: 1px solid rgba(0, 0, 0, .25);
 }
 
-.todo-list__input[name="title"] {
+.list__input[name="title"] {
   font-weight: 600;
 }
 
-.todo-list__input:focus {
+.list__input:focus {
   box-shadow: none;
 }
 
-.todo-list__input.js-done {
+.list__input.js-done {
   text-decoration: line-through;
 }
