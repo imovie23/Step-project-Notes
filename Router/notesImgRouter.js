@@ -47,8 +47,6 @@ module.exports = function () {
     routers.delete('/image', function (req, res) {
         let newNotes = req.body;
 
-        console.log(newNotes);
-        
         if (newNotes.imageId === '') {
             console.log('No match');
         } else {

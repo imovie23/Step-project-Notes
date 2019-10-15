@@ -13,6 +13,7 @@ if (form) {
 
         for (let [name, value] of formData) {
 
+
             if (typeof value === "object") {
                 formData.append('nameImg', value.name);
 
@@ -22,9 +23,16 @@ if (form) {
                         data['imageId'] = file.value || '';
                         data['imageName'] = file.name || '';
 
+        console.log(data);
+
+        if (data.id) {
+                fetch('/notes', {
+                    method: 'PUT',
+
+                    body: formData
+                }).finally(() => {
                     }
                 }
-
             }
             data[name] = value;
         }
@@ -54,8 +62,6 @@ if (form) {
             });
 
         }
-
-
     }
 }
 
@@ -81,7 +87,12 @@ function onBtnDeleteClick(event, id, imageId) {
         }).finally(() => {
             console.log("Go to space and delete!!!!!!");
         });
+    }
 
+    if (imageId !== null && imageId !== undefined && imageId.length > 0) {
+        }).finally(() => {
+            console.log("Go to space and delete!!!!!!");
+        });
     }
 
     if (imageId !== null && imageId !== undefined && imageId.length > 0) {
@@ -97,6 +108,8 @@ function onBtnDeleteClick(event, id, imageId) {
 
     }
 }
+
+function onBtnChangeClick(e) {
 
 
 function onBtnChangeClick(e) {

@@ -52,6 +52,7 @@ module.exports = function () {
     routers.put('/', upload.single("myFile"), function (req, res) {
         let newNotes = req.body;
         let imageId;
+
         if (req.file === undefined) {
             imageId ='';
         } else {
