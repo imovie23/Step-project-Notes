@@ -20,6 +20,7 @@ const conn = mongoose.createConnection(config.DB_URI);
 const defaultRouter = require('./Router/default');
 const notesRouter = require('./Router/notesRouter');
 const notesImgRouter = require('./Router/notesImgRouter');
+const todoRouter = require('./Router/makeTodoListRouter')
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(morgan('dev'));
@@ -54,6 +55,8 @@ mongoose
     app.use('/', defaultRouter());
     app.use('/notes', notesRouter());
     app.use('/notes', notesImgRouter());
+
+    app.use('/todo', todoRouter());
 
 
     if (!module.parent) {
