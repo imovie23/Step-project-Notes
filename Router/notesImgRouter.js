@@ -43,9 +43,12 @@ module.exports = function () {
         res.status(201).send(req.body);
     });
 
+
     routers.delete('/image', function (req, res) {
         let newNotes = req.body;
 
+        console.log(newNotes);
+        
         if (newNotes.imageId === '') {
             console.log('No match');
         } else {

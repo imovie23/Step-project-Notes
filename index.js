@@ -24,16 +24,6 @@ const notesImgRouter = require('./Router/notesImgRouter');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(morgan('dev'));
 
-
-
-let gfs;
-conn.once("open", () => {
-    gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection("uploads");
-    console.log("Connection Successful");
-});
-
-
 mongoose
     .connect(
         config.DB_URI,

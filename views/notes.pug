@@ -1,14 +1,26 @@
 include basic/head
 body
     include basic/header
-    form(action="", method="get", id="addToMongo", style="border: 1px black solid; width:95%; margin-left:15px")
-        label(for="tittleNotes" style="margin-left:10px;") Tittle notes
-        input(type="text", id="tittleNotes", name="tittleNotes" style="display:block; margin:10px; width: 90%;", value="")
-        label(for="descriptionNotes" style="margin-left:10px;") Description notes
-        input(type="text", id="descriptionNotes" name="descriptionNotes" style="display:block; margin:10px; width: 90%;", value="")
-        input(type="submit", style="margin:10px", id="addToMongoTWO")
-        input(type="file", name="myFile", style="margin:10px" id="inputGroupFile01")
-        img(id="img", style="display:block;")
+    .album.py-5.bg-light
+        .container
+            .row
+                .col-md-12
+                    div(class=" card mb-4 box-shadow")
+                        .card-body
+                            form(action="", method="get", id="addToMongo")
+                                div(class="form-group")
+                                    label(for="tittleNotes") Tittle notes
+                                    input(type="text", id="tittleNotes", name="tittleNotes", value="", class="form-control")
+                                    small(id="emailHelp", class="form-text text-muted") Creat your plans
+                                div(class="form-group")
+                                    label(for="descriptionNotes") Description notes
+                                    input(type="text", id="descriptionNotes" name="descriptionNotes", value="", class="form-control")
+                                div(class="form-group")
+                                    label(for="inputGroupFile01") Example file input
+                                    input(type="file", class="form-control-file", id="inputGroupFile01", name="myFile")
+                                .d-flex.justify-content-between.align-items-center
+                                    .btn-group
+                                        button.btn.btn-sm.btn-outline-secondary(type="submit", id="addToMongoTWO") Save
 include basic/footer
 script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js", integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo", crossorigin="anonymous")
 script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js", integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1", crossorigin="anonymous")

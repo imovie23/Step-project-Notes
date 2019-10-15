@@ -15,12 +15,12 @@ body
                 .row
                     each note in notes
                         .col-md-4
-                            div(class=" card mb-4 box-shadow", id=`${note._id}`)
+                            div(class="card mb-4 box-shadow", id=`${note._id}`)
                                 if note.imageName.length > 0
                                     img.card-img-top(src=`http://localhost:3001/notes/image/${note.imageName}`, alt='imageNotes', style='height: 225px; width: 100%; display: block; background-size: cover;', data-holder-rendered='true', id="img")
                                 .card-body
                                     h5(class="card-title")=note.title
-                                    p(class=card - text)=note.description
+                                    p(class="card-text")=note.description
                                     .d-flex.justify-content-between.align-items-center
                                         .btn-group
                                             button.btn.btn-sm.btn-outline-secondary(type="submit", value="Delete", onClick="onBtnDeleteClick" + `(event, '${note._id}', '${note.imageId}')`) Delete
@@ -28,7 +28,7 @@ body
                                         small.text-muted=`${Math.floor((((new Date()) - (new Date(note.updated_at).getTime())) / 1000) / 60)} min ago`
     block createNotes
     footer.text-muted
-        include basic/footer
+    include basic/footer
 
 script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js", integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo", crossorigin="anonymous")
 script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js", integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1", crossorigin="anonymous")
