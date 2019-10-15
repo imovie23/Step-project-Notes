@@ -1,15 +1,20 @@
-form(action="", method="get", id="addToMongo", style="border: 1px black solid; width:95%; margin-left:15px")
-    label(for="tittleNotes" style="margin-left:10px;") Tittle notes
-    input(type="text", id="tittleNotes", name="tittleNotes" style="display:block; margin:10px; width: 90%;", value=`${note.title}`)
-    label(for="descriptionNotes" style="margin-left:10px;") Description notes
-    input(type="text", id="descriptionNotes" name="descriptionNotes" style="display:block; margin:10px; width: 90%;", value=`${note.description}`)
-    input(type="hidden" name="id", value=note._id.toString())
-    input(type="submit", style="margin:10px")
-    button(type="submit", value="Delete", style="margin:10px", onClick="onBtnDeleteClick" + `(event, '${note._id}')`) Delete Notes
-    input(type="file", name="myFile", style="margin:10px; display:none;" id="fileChange" onchange="onFileChange" + `(event, null, '${note.imageId}')`)
-    button(type="text", value=note.imageId, name=note.imageName, style="margin:10px", onClick="onBtnChangeClick" + `(event)`, id="imageChange") Change img
-    if note.imageName.length > 0
-        img(id="img", style="display:block; width:100%; height=350px;", src=`http://localhost:3001/notes/image/${note.imageName}`)
+include basic/head
+body
+    include basic/header
+    form(action="", method="get", id="addToMongo", style="border: 1px black solid; width:95%; margin-left:15px")
+        label(for="tittleNotes" style="margin-left:10px;") Tittle notes
+        input(type="text", id="tittleNotes", name="tittleNotes" style="display:block; margin:10px; width: 90%;", value=`${note.title}`)
+        label(for="descriptionNotes" style="margin-left:10px;") Description notes
+        input(type="text", id="descriptionNotes" name="descriptionNotes" style="display:block; margin:10px; width: 90%;", value=`${note.description}`)
+        input(type="hidden" name="id", value=note._id.toString())
+        input(type="submit", style="margin:10px")
+        button(type="submit", value="Delete", style="margin:10px", onClick="onBtnDeleteClick" + `(event, '${note._id}')`) Delete Notes
+        input(type="file", name="myFile", style="margin:10px; display:none;" id="fileChange" onchange="onFileChange" + `(event, null, '${note.imageId}')`)
+        button(type="text", value=note.imageId, name=note.imageName, style="margin:10px", onClick="onBtnChangeClick" + `(event)`, id="imageChange") Change img
+        if note.imageName.length > 0
+            img(id="img", style="display:block; width:100%; height=350px;", src=`http://localhost:3001/notes/image/${note.imageName}`)
 
-    include basic/footer
-
+include basic/footer
+script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js", integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo", crossorigin="anonymous")
+script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js", integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1", crossorigin="anonymous")
+script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js", integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM", crossorigin="anonymous")

@@ -34,8 +34,7 @@ module.exports = function () {
         } else {
             imageId = req.file.id;
         }
-
-
+        
         let notes = new Notes({
             title: newNotes.tittleNotes,
             description: newNotes.descriptionNotes,

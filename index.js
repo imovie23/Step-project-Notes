@@ -59,6 +59,7 @@ mongoose
     app.use(express.static(config.PUBLIC_ROOT));
     app.use(bodyParse.urlencoded({extended: true}));
     app.use(bodyParse.json());
+   // app.use(express.static(__dirname + '/public'));
 
     app.use('/', defaultRouter());
     app.use('/notes', notesRouter());
