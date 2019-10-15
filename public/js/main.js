@@ -66,7 +66,7 @@ function onBtnDeleteClick(event, id, imageId) {
     if (document.getElementById(id)) {
         document.getElementById(id).remove();
     } else {
-        window.location.href = '/';
+       // window.location.href = '/';
     }
 
     if (id !== null && id !== undefined && id.length > 0) {
@@ -77,7 +77,7 @@ function onBtnDeleteClick(event, id, imageId) {
                 'Content-Type': 'application/json',
             }
         }).then(res => {
-           //window.location.href = '/';
+          // window.location.href = '/';
         }).finally(() => {
             console.log("Go to space and delete!!!!!!");
         });
@@ -85,7 +85,6 @@ function onBtnDeleteClick(event, id, imageId) {
     }
 
     if (imageId !== null && imageId !== undefined && imageId.length > 0) {
-        console.log(imageId);
         fetch('/notes/image', {
             method: 'DELETE',
             body: JSON.stringify({imageId: imageId}),
@@ -107,8 +106,7 @@ function onBtnChangeClick(e) {
 }
 
 function onFileChange(e, id, imageId) {
-    console.log(imageId);
     onBtnDeleteClick(e, id, imageId);
-    //onFormSubmit(e);
+    onFormSubmit(e);
 }
 
