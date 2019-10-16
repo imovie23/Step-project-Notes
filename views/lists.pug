@@ -1,0 +1,27 @@
+doctype html
+html(lang="ru")
+    head
+        include basic/head
+
+    body
+        include basic/header
+        main.bg-light(role='main')
+            .container
+                .row
+                    .col
+                        .card.list.mt-5.mb-5
+                            .card-body.p-4
+                                form#listForm(name="listForm")
+                                    .form-group.list__title
+                                        label
+                                            input.form-control.pt-2.pb-2.pl-0.pr-0.border-0.list__input(type="text", name="title", value="sometitle", placeholder="Введите заголовок")
+                                    .form-group
+                                        .form-check.pl-3
+                                            input.form-check-input.list__checkbox(type="checkbox", value="", name="check")
+                                            input.form-control.pt-2.pb-2.pl-1.pr-1.border-0.list__input(type="text", name="listItem1", value="", data-input="listItem", data-checked="false" placeholder="Заметка #1")
+                                    p.pt-2.pb-2.mb-0
+                                        button.btn.btn-primary(type="button", name="submit") Сохранить
+
+    footer.footer.bg-dark.pt-3.pb-3
+        .container Footer
+    script(src="/js/todoList.js")
