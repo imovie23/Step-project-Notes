@@ -1,7 +1,6 @@
 const routers = require('express').Router();
 const Notes = require('../models/notes');
 const mongoose = require('mongoose');
-const formData = require('form-data');
 const upload = require('../models/imgCreat');
 
 
@@ -17,6 +16,7 @@ module.exports = function () {
 
         Notes
             .findById(mongoose.Types.ObjectId(noteId), function (err, note) {
+                console.log(note);
                 res.render('detailsNote.pug', {
                     title: 'Параметры клиента:',
                     note: note

@@ -7,6 +7,6 @@ const listsSchema = new Schema({
 
 })
 
-const lists = mongoose.model('lists', listsSchema)
+const Lists = mongoose.model('Lists', listsSchema)
 
-module.exports = lists
+module.exports = Lists

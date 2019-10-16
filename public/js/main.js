@@ -109,3 +109,4 @@ function onFileChange(e, id, imageId) {
     onBtnDeleteClick(e, id, imageId);
     onFormSubmit(e);
 }
+
