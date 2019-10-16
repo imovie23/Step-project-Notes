@@ -62,11 +62,15 @@ module.exports = function () {
 
             });
 
-            gfs.db.collection('uploads.chunks').findOne({files_id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) => {
+            gfs.db.collection('uploads.chunks').find({files_id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) => {
 
-                gfs.db.collection('uploads.chunks').deleteOne(file, function (err) {
-                    return true;
-                });
+                file.forEach(i => {
+                    gfs.db.collection('uploads.chunks').deleteOne(i, function (err) {
+                        return true;
+                    });
+                })
+
+
 
             });
         }
