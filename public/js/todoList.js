@@ -108,9 +108,9 @@ if (listForm) {
             }
 
             if (!target.value && target.name !== 'title') {
-                if (target.name === 'listItem1') {
-                    return;
-                }
+                // if (target.name === 'listItem1') {
+                //     return;
+                // }
 
                 event.preventDefault()
                 target.closest('.form-group').previousElementSibling.querySelector('[data-input="listItem"]').focus();
@@ -127,21 +127,40 @@ if (listForm) {
 
         const listItems = form.querySelectorAll('[data-input="listItem"]');
 
-        if (target.name === 'title') {
+        // console.log(listItems)
 
-            const firstInput = form.listItem1;
-            firstInput.focus();
-
-        } else if (target.dataset.input === 'listItem') {
-            const html = `
+        const html = `
 			<div class="form-group">
 				<div class="form-check pl-3">
-					<input class="form-check-input list__checkbox" type="checkbox" value="" name="check">
-					<input class="form-control pt-2 pb-2 pl-1 pr-1 border-0 list__input" type="text" name="listItem${listItems.length + 1}" value="" data-input="listItem" data-checked="false" placeholder="Заметка #${listItems.length + 1}">
+					<input 
+              class="form-check-input list__checkbox" 
+              type="checkbox" 
+              value="" 
+              name="check"
+					>
+					<input 
+              class="form-control pt-2 pb-2 pl-1 pr-1 border-0 list__input" 
+              type="text" 
+              name="listItem${listItems.length + 1}" 
+              value="" 
+              data-input="listItem" 
+              data-checked="false" 
+              placeholder="Заметка #${listItems.length + 1}"
+					>
 				</div>
 			</div>
 		`
 
+        if (target.name === 'title' && listItems.length === 0) {
+            target.closest('.form-group').insertAdjacentHTML('afterend', html);
+
+            target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus()
+
+        } if (target.name === 'title' && listItems.length) {
+            target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus()
+        }
+
+        else if (target.dataset.input === 'listItem') {
             target.closest('.form-group').insertAdjacentHTML('afterend', html);
             target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus();
         }
