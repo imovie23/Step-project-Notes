@@ -6,3 +6,4 @@ package-lock.json
 .idea
 *.iml
 npm-debug.log
+yarn.lock
