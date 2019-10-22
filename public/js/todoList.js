@@ -49,8 +49,6 @@ if (listForm) {
         }
 
         if (data.id) {
-            // console.log('---','PUT');
-            // debugger;
             fetch('/lists', {
                 method: 'PUT',
                 body: JSON.stringify(data),
@@ -60,20 +58,10 @@ if (listForm) {
             }).then(res => {
                 window.location.href = '/';
             })
-                .finally(() => {
-                    // debugger;
-                    // const formGroups = Array.from(form.querySelectorAll('.form-group'));
-                    // formGroups.forEach((item, index) => {
-                    //     if (index > 0) {
-                    //         console.log(item);
-                    //         item.remove();
-                    //     }
-                    // });
-                    //form.reset();
-                });
+            .finally(() => {
+
+            });
         } else {
-            // debugger;
-            // console.log('---','POST');
             fetch('/lists', {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -83,18 +71,9 @@ if (listForm) {
             }).then(res => {
                 window.location.href = '/';
             })
-                .finally(() => {
-                    // const formGroups = Array.from(form.querySelectorAll('.form-group'));
+            .finally(() => {
 
-                    // formGroups.forEach((item, index) => {
-                    //     if (index > 0) {
-                    //         item.remove();
-                    //     }
-                    // });
-
-
-                   // form.reset();
-                });
+            });
         }
 
 
@@ -114,10 +93,6 @@ if (listForm) {
             }
 
             if (!target.value && target.name !== 'title') {
-                // if (target.name === 'listItem1') {
-                //     return;
-                // }
-
                 event.preventDefault()
                 target.closest('.form-group').previousElementSibling.querySelector('input[type="text"]').focus();
                 target.closest('.form-group').remove();
