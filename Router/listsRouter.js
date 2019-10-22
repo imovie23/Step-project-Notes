@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 module.exports = function () {
 	router.get('/', function (req, res) {
+		console.log('---server GET');
 		res.render('lists.pug', {});
 	});
 
@@ -24,7 +25,7 @@ module.exports = function () {
 	router.post('/', function (req, res) {
 		const listsData = req.body;
 
-		console.log(listsData);
+		console.log('---server POST', listsData);
 
 		const lists = new Lists({
 			lists: listsData,
@@ -38,7 +39,7 @@ module.exports = function () {
 	router.put('/', function (req, res) {
 		const listsData = req.body;
 
-		console.log(listsData);
+		console.log('---server PUT', listsData);
 
 		Lists
 			.findByIdAndUpdate(listsData.id, {

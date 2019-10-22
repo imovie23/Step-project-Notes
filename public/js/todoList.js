@@ -36,8 +36,10 @@ if (listForm) {
                     data[element.name] = element.value;
                 } else if (element.dataset.input === 'listItem' && element.value !== '') {
                     data[element.name] = {
+                        name: element.name,
                         value: element.value,
-                        checked: element.dataset.checked
+                        checked: element.dataset.checked,
+                        // id: element.id,
                     }
                 }
             }
@@ -45,9 +47,10 @@ if (listForm) {
                 data[element.name] = element.value
             }
         }
-        console.log(data);
 
         if (data.id) {
+            // console.log('---','PUT');
+            // debugger;
             fetch('/lists', {
                 method: 'PUT',
                 body: JSON.stringify(data),
@@ -58,16 +61,19 @@ if (listForm) {
                 window.location.href = '/';
             })
                 .finally(() => {
-                    const formGroups = Array.from(form.querySelectorAll('.form-group'));
-                    formGroups.forEach((item, index) => {
-                        if (index > 1) {
-                            console.log(item);
-                            item.remove();
-                        }
-                    });
+                    // debugger;
+                    // const formGroups = Array.from(form.querySelectorAll('.form-group'));
+                    // formGroups.forEach((item, index) => {
+                    //     if (index > 0) {
+                    //         console.log(item);
+                    //         item.remove();
+                    //     }
+                    // });
                     //form.reset();
                 });
         } else {
+            // debugger;
+            // console.log('---','POST');
             fetch('/lists', {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -78,13 +84,13 @@ if (listForm) {
                 window.location.href = '/';
             })
                 .finally(() => {
-                    const formGroups = Array.from(form.querySelectorAll('.form-group'));
+                    // const formGroups = Array.from(form.querySelectorAll('.form-group'));
 
-                    formGroups.forEach((item, index) => {
-                        if (index > 1) {
-                            item.remove();
-                        }
-                    });
+                    // formGroups.forEach((item, index) => {
+                    //     if (index > 0) {
+                    //         item.remove();
+                    //     }
+                    // });
 
 
                    // form.reset();
@@ -145,6 +151,7 @@ if (listForm) {
               type="text" 
               name="listItem-${id}" 
               value="" 
+              
               data-input="listItem" 
               data-checked="false" 
               placeholder="Enter your note and click Enter"
