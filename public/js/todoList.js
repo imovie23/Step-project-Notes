@@ -113,7 +113,7 @@ if (listForm) {
                 // }
 
                 event.preventDefault()
-                target.closest('.form-group').previousElementSibling.querySelector('[data-input="listItem"]').focus();
+                target.closest('.form-group').previousElementSibling.querySelector('input[type="text"]').focus();
                 target.closest('.form-group').remove();
                 return;
             }
@@ -123,11 +123,13 @@ if (listForm) {
     }
 
     function addTodoItem(target) {
+        const id = Math.random().toFixed(7).toString().slice(2);
+
+        // console.log(id)
+        //
         const form = document.forms.listForm;
 
         const listItems = form.querySelectorAll('[data-input="listItem"]');
-
-        // console.log(listItems)
 
         const html = `
 			<div class="form-group">
@@ -141,11 +143,11 @@ if (listForm) {
 					<input 
               class="form-control pt-2 pb-2 pl-1 pr-1 border-0 list__input" 
               type="text" 
-              name="listItem${listItems.length + 1}" 
+              name="listItem-${id}" 
               value="" 
               data-input="listItem" 
               data-checked="false" 
-              placeholder="Заметка #${listItems.length + 1}"
+              placeholder="Enter your note and click Enter"
 					>
 				</div>
 			</div>
@@ -161,8 +163,8 @@ if (listForm) {
         }
 
         else if (target.dataset.input === 'listItem') {
-            target.closest('.form-group').insertAdjacentHTML('afterend', html);
-            target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus();
+            target.form.elements[target.form.elements.length - 1].closest('.btn-wrap').insertAdjacentHTML('beforebegin', html);
+            target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus()
         }
     }
 }
