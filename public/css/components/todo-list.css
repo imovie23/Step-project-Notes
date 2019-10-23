@@ -23,3 +23,12 @@
 .list__input.js-done {
   text-decoration: line-through;
 }
+
+.list__btn {
+  min-width: 130px;
+  cursor: pointer;
+}
+
+.list__btn[disabled] {
+  cursor: not-allowed;
+}

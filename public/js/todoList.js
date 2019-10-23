@@ -1,4 +1,5 @@
 const listForm = document.getElementById('listForm')
+listForm.submit.disabled = true;
 
 if (listForm) {
     listForm.addEventListener('submit', onSubmitHandler);
@@ -11,6 +12,7 @@ if (listForm) {
 
     function onClickHandler(event) {
         const target = event.target;
+        const form = this;
 
         if (target.name !== 'submit' && target.name !== 'check') {
             return;
@@ -27,7 +29,6 @@ if (listForm) {
             return;
         }
 
-        const form = target.form;
         const data = {};
 
         for (let element of form) {
@@ -75,44 +76,39 @@ if (listForm) {
 
             });
         }
-
-
     }
 
     function onKeyDownHandler(event) {
         const target = event.target;
+        const form = this;
 
         if (target.tagName !== 'INPUT' || (event.key !== "Enter" && event.key !== "Backspace")) {
             return
         }
 
-        if (event.key === "Backspace" && target.tagName === 'INPUT') {
-
-            if (target.value || target.name === 'title') {
-                return;
-            }
-
-            if (!target.value && target.name !== 'title') {
-                event.preventDefault()
-                target.closest('.form-group').previousElementSibling.querySelector('input[type="text"]').focus();
-                target.closest('.form-group').remove();
-                return;
-            }
+        switch (event.key) {
+            case 'Enter':
+                addTodoItem(target);
+                break;
+            case 'Backspace':
+                deleteTodoItem(event, target);
+                break;
         }
-
-        addTodoItem(target);
-    }
-
-    function addTodoItem(target) {
-        const id = Math.random().toFixed(7).toString().slice(2);
-
-        // console.log(id)
-        //
-        const form = document.forms.listForm;
 
         const listItems = form.querySelectorAll('[data-input="listItem"]');
 
-        const html = `
+        !listItems.length ? form.submit.disabled = true : form.submit.disabled = false;
+    }
+}
+
+function addTodoItem(target) {
+    const id = Math.random().toFixed(7).toString().slice(2);
+
+    const form = target.form;
+
+    const listItems = form.querySelectorAll('[data-input="listItem"]');
+
+    const html = `
 			<div class="form-group">
 				<div class="form-check pl-3">
 					<input 
@@ -129,24 +125,38 @@ if (listForm) {
               
               data-input="listItem" 
               data-checked="false" 
-              placeholder="Enter your note and click Enter"
+              placeholder="Enter your note and press Enter or Backspace"
 					>
 				</div>
 			</div>
 		`
 
-        if (target.name === 'title' && listItems.length === 0) {
-            target.closest('.form-group').insertAdjacentHTML('afterend', html);
+    if (target.name === 'title' && listItems.length === 0) {
+        target.closest('.form-group').insertAdjacentHTML('afterend', html);
 
-            target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus()
+        target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus()
 
-        } if (target.name === 'title' && listItems.length) {
-            target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus()
+    } if (target.name === 'title' && listItems.length) {
+        target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus()
+    }
+
+    else if (target.dataset.input === 'listItem') {
+        target.form.elements[target.form.elements.length - 1].closest('.btn-wrap').insertAdjacentHTML('beforebegin', html);
+        target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus()
+    }
+}
+
+function deleteTodoItem(event,  target) {
+    if (target.tagName === 'INPUT') {
+
+        if (target.value || target.name === 'title') {
+            return;
         }
 
-        else if (target.dataset.input === 'listItem') {
-            target.form.elements[target.form.elements.length - 1].closest('.btn-wrap').insertAdjacentHTML('beforebegin', html);
-            target.closest('.form-group').nextElementSibling.querySelector('[data-input="listItem"]').focus()
+        if (!target.value && target.name !== 'title') {
+            event.preventDefault()
+            target.closest('.form-group').previousElementSibling.querySelector('input[type="text"]').focus();
+            target.closest('.form-group').remove();
         }
     }
 }
