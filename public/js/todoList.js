@@ -5,6 +5,7 @@ if (listForm) {
     listForm.addEventListener('submit', onSubmitHandler);
     listForm.addEventListener('click', onClickHandler);
     listForm.addEventListener('keydown', onKeyDownHandler);
+    listForm.addEventListener('input', onInputHandLer);
 
     function onSubmitHandler(event) {
         event.preventDefault();
@@ -95,11 +96,21 @@ if (listForm) {
                 break;
         }
 
+            const listItems = form.querySelectorAll('[data-input="listItem"]');
+
+            !listItems.length ? form.submit.disabled = true : form.submit.disabled = false;
+    }
+
+    function onInputHandLer(event) {
+        const target = event.target;
+        const form = target.form;
+
         const listItems = form.querySelectorAll('[data-input="listItem"]');
 
         !listItems.length ? form.submit.disabled = true : form.submit.disabled = false;
     }
 }
+
 
 function addTodoItem(target) {
     const id = Math.random().toFixed(7).toString().slice(2);
@@ -155,7 +166,10 @@ function deleteTodoItem(event,  target) {
 
         if (!target.value && target.name !== 'title') {
             event.preventDefault()
-            target.closest('.form-group').previousElementSibling.querySelector('input[type="text"]').focus();
+            const previousInput = target.closest('.form-group').previousElementSibling.querySelector('input[type="text"]');
+            previousInput.focus();
+            previousInput.selectionStart = previousInput.value.length;
+
             target.closest('.form-group').remove();
         }
     }
