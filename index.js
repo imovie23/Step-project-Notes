@@ -20,30 +20,21 @@ const conn = mongoose.createConnection(config.DB_URI);
 const defaultRouter = require('./Router/default');
 const notesRouter = require('./Router/notesRouter');
 const notesImgRouter = require('./Router/notesImgRouter');
+const listsRouter = require('./Router/listsRouter')
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(morgan('dev'));
 
-
-
-let gfs;
-conn.once("open", () => {
-    gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection("uploads");
-    console.log("Connection Successful");
-});
-
-
 mongoose
-    .connect(
-        config.DB_URI,
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useFindAndModify: false
+  .connect(
+    config.DB_URI,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false
 
-        }
-    ).then(() => {
+    }
+  ).then(() => {
 
     app.set('views engine', config.TEMPLATE_ENGINE);
     app.set('views', config.TEMPLATE_VIEW_PATH);
@@ -59,17 +50,18 @@ mongoose
     app.use(express.static(config.PUBLIC_ROOT));
     app.use(bodyParse.urlencoded({extended: true}));
     app.use(bodyParse.json());
+    // app.use(express.static(__dirname + '/public'));
 
     app.use('/', defaultRouter());
     app.use('/notes', notesRouter());
     app.use('/notes', notesImgRouter());
 
+    app.use('/lists', listsRouter());
+
 
     if (!module.parent) {
-        app.listen(3001);
+        app.listen(3002);
         console.log('Express started on port 3001');
     }
 
 });
-
-

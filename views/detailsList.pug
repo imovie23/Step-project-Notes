@@ -1,0 +1,36 @@
+include basic/head
+body
+    include basic/header
+    main.bg-light(role='main')
+            .container
+                .row
+                    .col
+                        .card.list.mt-5.mb-5
+                            .card-body.p-4
+                                form#listForm(name="listForm")
+                                    .form-group.list__title
+                                        label
+                                            input.form-control.pt-2.pb-2.pl-0.pr-0.border-0.list__input(type="text", name="title", value=`${list.lists.title}`, placeholder="Enter your title and press Enter")
+                                    each item in list.lists
+
+                                        if item.value
+                                            .form-group
+                                                .form-check.pl-3
+                                                    if item.checked === 'true'
+                                                        input.form-check-input.list__checkbox(type="checkbox", value="", name="check" checked)
+                                                        input.form-control.pt-2.pb-2.pl-1.pr-1.border-0.list__input(type="text", name=`${item.name}`, value=`${item.value}`, data-input="listItem", data-checked="true" placeholder="Enter your note and press Enter or Backspace")
+                                                    else
+                                                        input.form-check-input.list__checkbox(type="checkbox", value="", name="check")
+                                                        input.form-control.pt-2.pb-2.pl-1.pr-1.border-0.list__input(type="text", name=`${item.name}`, value=`${item.value}`, data-input="listItem", data-checked="false" placeholder="Enter your note and press Enter or Backspace")
+
+                                    p.pt-2.pb-2.mb-0.btn-wrap
+                                        button.btn.btn-primary.mr-3.list__btn(type="button", name="submit") Сохранить
+                                        button.btn.btn-danger.list__btn(type="button", name="delete", onClick="onBtnDeleteListClick" + `(event, '${list._id}')`) Удалить
+                                        input(type="hidden" name="id", value=list._id.toString())
+
+    footer.footer.bg-dark.pt-3.pb-3
+        .container Footer
+    script(src="/js/todoList.js")
+    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js", integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo", crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js", integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1", crossorigin="anonymous")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js", integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM", crossorigin="anonymous")

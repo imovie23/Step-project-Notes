@@ -1,20 +1,55 @@
-doctype html
-html(lang="ru")
-    head
-        include basic/head
-    body
-        include basic/header
-        a(href="/notes")
-            button(type="submit", value="Submit", style="margin:10px", id="create-notes") Creat Notes
-        button(type="submit", value="Submit", style="margin:10px;") Creat Notes CkeckBox
-        each note in notes
-            div(style="border:1px black solid; width:10%; height:fit-content; display:inline-block; margin:5px", id=`${note._id}`)
-                p=note.title
-                p=note.description
-                a(href=`/notes/${note._id}`)
-                    button(type="submit", value="Submit", style="margin:10px" ) Details Notes
-                button(type="submit", value="Delete", style="margin:10px", onClick="onBtnDeleteClick"+`(event, '${note._id}', '${note.imageId}')`) Delete Notes
-                if note.imageName.length > 0
-                    img(id="img", style="display:block; width:100%; height=350px;", src=`http://localhost:3001/notes/image/${note.imageName}`)
-        block createNotes
-        include basic/footer
+include basic/head
+body
+    include basic/header
+    main.bg-light(role='main')
+        section.jumbotron.text-center
+            .container
+                h1.jumbotron-heading Create your plans
+                p.lead.text-muted
+                    | Something short and leading about the collection lists and notes.
+                p
+                    a.btn.btn-primary.my-2.mr-2(href="/notes") Creat notes
+                    a.btn.btn-secondary.my-2(href='/lists') Create to-do list
+        .album.py-5.bg-light
+            .container
+                .row
+                    each note in notes
+                        .col-md-4
+                            div(class="card mb-4 box-shadow", id=`${note._id}`)
+                                if note.imageName && note.imageName.length > 0
+                                    img.card-img-top(src=`http://localhost:3001/notes/image/${note.imageName}`, alt='imageNotes', style='height: 225px; width: 100%; display: block; background-size: cover;', data-holder-rendered='true', id="img")
+                                .card-body
+                                    h5(class="card-title")=note.title
+                                    p(class="card-text")=note.description
+                                    .d-flex.justify-content-between.align-items-center
+                                        .btn-group
+                                            button.btn.btn-sm.btn-outline-secondary(type="submit", value="Delete", onClick="onBtnDeleteClick" + `(event, '${note._id}', '${note.imageId}')`) Delete
+                                            a.btn.btn-sm.btn-outline-secondary(href=`/notes/${note._id}`) Edit
+                                        small.text-muted=`${Math.floor((((new Date()) - (new Date(note.updated_at).getTime())) / 1000) / 60)} min ago`
+                    each list in toDoLists
+                        .col-md-4
+                            div(class="card mb-4 box-shadow", id=`${list._id}`)
+                                .card-body
+                                    h5(class="card-title")=list.lists.title
+                                    each items in list.lists
+                                        if items.value
+                                            .form-group
+                                                .form-check.pl-3
+                                                    if items.checked === 'true'
+                                                        input.form-check-input.list__checkbox(type="checkbox", value="", name="check", id="checkedList" checked, disabled)
+                                                        s
+                                                            p.form-control.pt-2.pb-2.pl-1.pr-1.border-0.list__input(type="text", name=``, value="", data-input="listItem", data-checked="items", placeholder="Заметка #1")=items.value
+                                                    else
+                                                        input.form-check-input.list__checkbox(type="checkbox", value="", name="check", id="checkedList", disabled)
+                                                        p.form-control.pt-2.pb-2.pl-1.pr-1.border-0.list__input(type="text", name=``, value="", data-input="listItem", data-checked="items", placeholder="Заметка #1")=items.value
+                                    .d-flex.justify-content-between.align-items-center
+                                        .btn-group
+                                            button.btn.btn-sm.btn-outline-secondary(type="submit", value="Delete", onClick="onBtnDeleteListClick" + `(event, '${list._id}')`) Delete
+                                            a.btn.btn-sm.btn-outline-secondary(href=`/lists/${list._id}`) Edit
+    block createNotes
+    //footer.text-muted
+    include basic/footer
+
+    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js", integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo", crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js", integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1", crossorigin="anonymous")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js", integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM", crossorigin="anonymous")

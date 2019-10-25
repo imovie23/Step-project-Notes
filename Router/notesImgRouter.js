@@ -3,6 +3,8 @@ const upload = require('../models/imgCreat');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Grid = require('gridfs-stream');
+const Notes = require('../models/notes');
+
 
 
 const config = dotenv.config().parsed;
@@ -20,6 +22,7 @@ module.exports = function () {
 
     routers.get('/image/:filename', (req, res) => {
         gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+
             if (!file || file.length === 0) {
                 return res.status(404).json({
                     err: 'No file exists',
@@ -40,27 +43,38 @@ module.exports = function () {
         res.status(201).send(req.body);
     });
 
+
     routers.delete('/image', function (req, res) {
         let newNotes = req.body;
 
-        if(newNotes.imageId === '') {
-            console.log('No match');
-        }else {
-            gfs.files.findOne({ _id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) =>{
+        console.log(newNotes);
 
-                gfs.files.deleteOne(file, function(err){
+        if (newNotes.imageId === '') {
+            console.log('No match');
+        } else {
+            gfs.files.findOne({_id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) => {
+
+                gfs.files.deleteOne(file, function (err) {
+
+
                     return true;
                 });
 
             });
-            gfs.db.collection('uploads.chunks').findOne({files_id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) =>{
 
-                gfs.db.collection('uploads.chunks').deleteOne(file, function(err){
+            gfs.db.collection('uploads.chunks').find({files_id: mongoose.Types.ObjectId(newNotes.imageId)}, (err, file) => {
+
+                file.forEach(i => {
+                    gfs.db.collection('uploads.chunks').deleteOne(i, function (err) {
                         return true;
-                    }) ;
+                    });
+                })
 
-                });
+
+
+            });
         }
+        res.status(201).send(req.body);
     });
 
 

@@ -1,13 +1,34 @@
-form(action="", method="get", id="addToMongo", style="border: 1px black solid; width:95%; margin-left:15px")
-    label(for="tittleNotes" style="margin-left:10px;") Tittle notes
-    input(type="text", id="tittleNotes", name="tittleNotes" style="display:block; margin:10px; width: 90%;", value=`${note.title}`)
-    label(for="descriptionNotes" style="margin-left:10px;") Description notes
-    input(type="text", id="descriptionNotes" name="descriptionNotes" style="display:block; margin:10px; width: 90%;", value=`${note.description}`)
-    input(type="hidden" name="id", value=note._id.toString())
-    input(type="submit", style="margin:10px")
-    button(type="submit", value="Delete", style="margin:10px", onClick="onBtnDeleteClick" + `(event, '${note._id}')`) Delete Notes
-    input(type="file", name="myFile", style="margin:10px; display:none;" id="fileChange")
-    button(type="submit", value="change", style="margin:10px", onClick="onBtnChangeClick" + `(event, '${note.imageId}')`) Change img
-    if note.imageName.length > 0
-        img(id="img", style="display:block; width:100%; height=350px;", src=`http://localhost:3001/notes/image/${note.imageName}`)
-include basic/footer
+include basic/head
+body
+    include basic/header
+    main.bg-light(role='main')
+        .album.py-5.bg-light
+            .container
+                .row
+                    .col-md-12
+                        div(class=" card mb-4 box-shadow", id=`${note._id}`)
+                            if note.imageName && note.imageName.length > 0
+                                img.card-img-top(src=`http://localhost:3001/notes/image/${note.imageName}`, alt='imageNotes', style='height: 225px; width: 100%; display: block; background-size: cover;', data-holder-rendered='true', id="img")
+                            .card-body
+                                form(action="", method="get", id="addToMongo")
+                                    div(class="form-group")
+                                        label(for="tittleNotes") Tittle notes
+                                        input(type="text", class="form-control", id="tittleNotes", placeholder="Enter title", name="tittleNotes", value=`${note.title}`)
+                                        small(id="emailHelp", class="form-text text-muted") Change your plans
+                                    div(class="form-group")
+                                        label(for="descriptionNotes") Description notes
+                                        input(type="text", class="form-control", id="descriptionNotes" name="descriptionNotes", value=`${note.description}`)
+                                        input(type="hidden" name="id", value=note._id.toString())
+
+                                    .d-flex.justify-content-between.align-items-center
+                                        .btn-group
+                                            button.btn.btn-sm.btn-outline-secondary(type="submit") Save
+                                            button.btn.btn-sm.btn-outline-secondary(type="submit", value="Delete", onClick="onBtnDeleteClick" + `(event, '${note._id}', '${note.imageId}')`) Delete notes
+                                            button.btn.btn-sm.btn-outline-secondary(type="text", value=note.imageId, name=note.imageName, onClick="onBtnChangeClick" + `(event)`, id="imageChange") Change image
+                                            input(type="file", name="myFile", style="display:none;" id="fileChange" onchange="onFileChange" + `(event, null, '${note.imageId}')`)
+                                        small.text-muted=`${Math.floor((((new Date()) - (new Date(note.updated_at).getTime())) / 1000) / 60)} min ago`
+
+    include basic/footer
+    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js", integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo", crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js", integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1", crossorigin="anonymous")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js", integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM", crossorigin="anonymous")
