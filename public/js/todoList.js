@@ -61,7 +61,7 @@ if (listForm) {
                 window.location.href = '/';
             })
             .finally(() => {
-
+                console.log('made PUT')
             });
         } else {
             fetch('/lists', {
