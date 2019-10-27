@@ -61,7 +61,11 @@ if (listForm) {
                 window.location.href = '/';
             })
             .finally(() => {
+<<<<<<< HEAD
 
+=======
+                console.log('made PUT')
+>>>>>>> acd5759b9255ea648436074c1b1b8017614c2fc0
             });
         } else {
             fetch('/lists', {
