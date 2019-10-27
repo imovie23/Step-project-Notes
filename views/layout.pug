@@ -17,14 +17,14 @@ body
                         .col-md-4
                             div(class="card mb-4 box-shadow", id=`${note._id}`)
                                 if note.imageName && note.imageName.length > 0
-                                    img.card-img-top(src=`http://localhost:3001/notes/image/${note.imageName}`, alt='imageNotes', style='height: 225px; width: 100%; display: block; background-size: cover;', data-holder-rendered='true', id="img")
+                                    img.card-img-top(src=`/notes/image/${note.imageName}`, alt='imageNotes', style='max-width: 100%; margin: 0 auto;', data-holder-rendered='true', id="img")
                                 .card-body
                                     h5(class="card-title")=note.title
                                     p(class="card-text")=note.description
                                     .d-flex.flex-wrap.justify-content-between.align-items-center
                                         .btn-group
-                                            button.btn.btn-sm.btn-danger(type="submit", value="Delete", onClick="onBtnDeleteClick" + `(event, '${note._id}', '${note.imageId}')`) Delete
-                                            a.btn.btn-sm.btn-primary(href=`/notes/${note._id}`) Edit
+                                            button.btn.btn-sm.btn-danger.mr-md-0.mr-xl-2(type="submit", value="Delete", onClick="onBtnDeleteClick" + `(event, '${note._id}', '${note.imageId}')`) Delete
+                                            a.btn.btn-sm.btn-primary.mt-md-2.mt-xl-0(href=`/notes/${note._id}`) Edit
                                         small.mt-1.text-muted=`${Math.floor((((new Date()) - (new Date(note.updated_at).getTime())) / 1000) / 60)} min ago`
                     each list in toDoLists
                         .col-md-4
@@ -41,11 +41,11 @@ body
                                                             p.form-control.pt-2.pb-2.pl-1.pr-1.border-0.list__input(type="text", name=``, value="", data-input="listItem", data-checked="items", placeholder="Заметка #1")=items.value
                                                     else
                                                         input.form-check-input.list__checkbox(type="checkbox", value="", name="check", id="checkedList", disabled)
-                                                        p.form-control.pt-2.pb-2.pl-1.pr-1.border-0.list__input(type="text", name=``, value="", data-input="listItem", data-checked="items", placeholder="Заметка #1")=items.value
+                                                        p.form-control.pt-2.pb-2.pl-1.pt-1.border-0.list__input(type="text", name=``, value="", data-input="listItem", data-checked="items", placeholder="Заметка #1")=items.value
                                     .d-flex.justify-content-between.align-items-center
                                         .btn-group
-                                            button.btn.btn-sm.btn-danger(type="submit", value="Delete", onClick="onBtnDeleteListClick" + `(event, '${list._id}')`) Delete
-                                            a.btn.btn-sm.btn-primary(href=`/lists/${list._id}`) Edit
+                                            button.btn.btn-sm.btn-danger.mr-md-0.mr-xl-2(type="submit", value="Delete", onClick="onBtnDeleteListClick" + `(event, '${list._id}')`) Delete
+                                            a.btn.btn-sm.btn-primary.mt-md-2.mt-xl-0(href=`/lists/${list._id}`) Edit
     block createNotes
     //footer.text-muted
     include basic/footer

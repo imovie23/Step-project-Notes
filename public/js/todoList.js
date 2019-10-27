@@ -136,7 +136,7 @@ function addTodoItem(target) {
               
               data-input="listItem" 
               data-checked="false" 
-              placeholder="Write your note and press Enter or Backspace to Delete the note"
+              placeholder="Write your note"
 					>
 				</div>
 			</div>
