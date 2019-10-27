@@ -1,7 +1,7 @@
 const listForm = document.getElementById('listForm')
-listForm.submit.disabled = true;
 
 if (listForm) {
+    listForm.submit.disabled = true;
     listForm.addEventListener('submit', onSubmitHandler);
     listForm.addEventListener('click', onClickHandler);
     listForm.addEventListener('keydown', onKeyDownHandler);
@@ -61,11 +61,7 @@ if (listForm) {
                 window.location.href = '/';
             })
             .finally(() => {
-<<<<<<< HEAD
-
-=======
                 console.log('made PUT')
->>>>>>> acd5759b9255ea648436074c1b1b8017614c2fc0
             });
         } else {
             fetch('/lists', {
@@ -140,7 +136,7 @@ function addTodoItem(target) {
               
               data-input="listItem" 
               data-checked="false" 
-              placeholder="Enter your note and press Enter or Backspace"
+              placeholder="Write your note and press Enter or Backspace to Delete the note"
 					>
 				</div>
 			</div>
