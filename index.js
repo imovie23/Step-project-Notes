@@ -62,7 +62,5 @@ mongoose
 
     if (!module.parent) {
         app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
-        // console.log('Express started on port 3002');
-        // console.log('The value of PORT is:', process.env.PORT)
     }
 });
