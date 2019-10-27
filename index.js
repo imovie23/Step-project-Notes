@@ -16,6 +16,7 @@ const app = express();
 const router = express.Router();
 const config = dotenv.config().parsed;
 const conn = mongoose.createConnection(config.DB_URI);
+const PORT = process.env.PORT || 3002;
 
 const defaultRouter = require('./Router/default');
 const notesRouter = require('./Router/notesRouter');
@@ -60,8 +61,9 @@ mongoose
 
 
     if (!module.parent) {
-        app.listen(3002);
-        console.log('Express started on port 3002');
+        app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+        // console.log('Express started on port 3002');
+        // console.log('The value of PORT is:', process.env.PORT)
     }
 
 });
