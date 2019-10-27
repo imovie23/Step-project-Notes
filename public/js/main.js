@@ -63,6 +63,10 @@ if (form) {
 function onBtnDeleteClick(event, id, imageId) {
     event.preventDefault();
 
+    let confirmDeleteList = confirm("Are you sure you want to delete this article?");
+
+    if (!confirmDeleteList) return;
+
     if (document.getElementById(id)) {
         document.getElementById(id).remove();
     } else {

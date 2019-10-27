@@ -11,6 +11,34 @@ main {
   flex: 1 0 auto;
 }
 
+.btn-group {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.btn {
+  min-width: 130px;
+}
+.btn-group .btn:not(:last-child),
+.btn-wrap .btn:not(:last-child) {
+  margin-right: 10px;
+}
+
+@media all and (max-width: 575px) {
+  .btn-group .btn:not(:last-child),
+  .btn-wrap .btn:not(:last-child) {
+    margin-right: 0;
+  }
+
+  .btn-group .btn:not(:last-child),
+  .btn-wrap .btn:not(:last-child) {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
 .footer {
   flex: 0 0 auto;
   font-weight: 700;

@@ -178,6 +178,11 @@ function deleteTodoItem(event,  target) {
 function onBtnDeleteListClick(event, id) {
     event.preventDefault();
     console.log(id);
+
+    let confirmDeleteList = confirm("Are you sure you want to delete this article?");
+
+    if (!confirmDeleteList) return;
+
     if (id !== null && id !== undefined && id.length > 0) {
 
         fetch('/lists', {

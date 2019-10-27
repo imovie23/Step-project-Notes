@@ -24,8 +24,8 @@ body
                                                         input.form-control.pt-2.pb-2.pl-1.pr-1.border-0.list__input(type="text", name=`${item.name}`, value=`${item.value}`, data-input="listItem", data-checked="false" placeholder="Enter your note and press Enter or Backspace")
 
                                     p.pt-2.pb-2.mb-0.btn-wrap
-                                        button.btn.btn-primary.mr-3.list__btn(type="button", name="submit") Сохранить
-                                        button.btn.btn-danger.list__btn(type="button", name="delete", onClick="onBtnDeleteListClick" + `(event, '${list._id}')`) Удалить
+                                        button.btn.btn-primary.list__btn(type="button", name="submit") Save
+                                        button.btn.btn-danger.list__btn(type="button", name="delete", onClick="onBtnDeleteListClick" + `(event, '${list._id}')`) Delete
                                         input(type="hidden" name="id", value=list._id.toString())
 
     footer.footer.bg-dark.pt-3.pb-3

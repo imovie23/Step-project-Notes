@@ -20,13 +20,13 @@ body
                                         input(type="text", class="form-control", id="descriptionNotes" name="descriptionNotes", value=`${note.description}`)
                                         input(type="hidden" name="id", value=note._id.toString())
 
-                                    .d-flex.justify-content-between.align-items-center
+                                    .d-flex.justify-content-between.align-items-center.flex-wrap
                                         .btn-group
-                                            button.btn.btn-sm.btn-outline-secondary(type="submit") Save
-                                            button.btn.btn-sm.btn-outline-secondary(type="submit", value="Delete", onClick="onBtnDeleteClick" + `(event, '${note._id}', '${note.imageId}')`) Delete notes
-                                            button.btn.btn-sm.btn-outline-secondary(type="text", value=note.imageId, name=note.imageName, onClick="onBtnChangeClick" + `(event)`, id="imageChange") Change image
+                                            button.btn.btn-primary(type="submit") Save
+                                            button.btn.btn-danger(type="submit", value="Delete", onClick="onBtnDeleteClick" + `(event, '${note._id}', '${note.imageId}')`) Delete notes
+                                            button.btn.btn-success(type="text", value=note.imageId, name=note.imageName, onClick="onBtnChangeClick" + `(event)`, id="imageChange") Change image
                                             input(type="file", name="myFile", style="display:none;" id="fileChange" onchange="onFileChange" + `(event, null, '${note.imageId}')`)
-                                        small.text-muted=`${Math.floor((((new Date()) - (new Date(note.updated_at).getTime())) / 1000) / 60)} min ago`
+                                        small.mt-1.text-muted=`${Math.floor((((new Date()) - (new Date(note.updated_at).getTime())) / 1000) / 60)} min ago`
 
     include basic/footer
     script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js", integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo", crossorigin="anonymous")
