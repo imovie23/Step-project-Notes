@@ -61,7 +61,7 @@ mongoose
 
     if (!module.parent) {
         app.listen(3002);
-        console.log('Express started on port 3001');
+        console.log('Express started on port 3002');
     }
 
 });
