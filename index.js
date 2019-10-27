@@ -16,7 +16,7 @@ const app = express();
 const router = express.Router();
 const config = dotenv.config().parsed;
 const conn = mongoose.createConnection(config.DB_URI);
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || config.PORT;
 
 const defaultRouter = require('./Router/default');
 const notesRouter = require('./Router/notesRouter');
