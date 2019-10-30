@@ -1,5 +1,5 @@
 {
-  "name": "stepproject-Notes",
+  "name": "step-project-Notes",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/imovie23/Step-project-Notes.git"
+    "url": "git+https://github.com/romul3003/Step-project-Notes.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/imovie23/Step-project-Notes/issues"
+    "url": "https://github.com/romul3003/Step-project-Notes/issues"
   },
-  "homepage": "https://github.com/imovie23/Step-project-Notes#readme",
+  "homepage": "https://github.com/romul3003/Step-project-Notes#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.1.0",
